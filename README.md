@@ -1,1 +1,1 @@
-# defi-hackathon-2019
+# DeFi Hackathon 2019
