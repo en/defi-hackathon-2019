@@ -1074,6 +1074,14 @@ impl_wasm_host_interface! {
 				}
 			})
 		}
+
+		ext_run_wasm(data: Pointer<u8>, len: WordSize) -> u32{
+			let plugin = context.read_memory(data, len)
+				.map_err(|_| "OOB while ext_run_wasm")?;
+			let res = wasm_proof::run_wasm(&plugin);
+			Ok(if res { 0 } else { 1 })
+		}
+
 	}
 }
 

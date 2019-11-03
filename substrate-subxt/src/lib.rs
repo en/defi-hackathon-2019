@@ -161,6 +161,15 @@ impl<T: System + Balances + 'static> Client<T> {
         &self.metadata
     }
 
+    ///
+    pub fn read_proof(
+        &self,
+        id: Option<T::Hash>,
+        key: StorageKey,
+    ) -> impl Future<Item = Vec<Vec<u8>>, Error = Error> {
+        self.connect().and_then(move |rpc| rpc.read_proof(id, key))
+    }
+
     /// Fetch a StorageKey.
     pub fn fetch<V: Decode>(
         &self,

@@ -1,0 +1,51 @@
+[package]
+name = "relayer"
+version = "0.1.0"
+authors = ["Yuanchao Sun <yuanchao.sun@gmail.com>"]
+edition = "2018"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+clap = { version = "~2.33", features = ["yaml"] }
+env_logger = "0.6"
+substrate-subxt = { path="../substrate-subxt" }
+hex = "0.3"
+tokio = { version = "0.1.11" }
+futures = "0.1.19"
+futures03 = { package = "futures-preview", version = "=0.3.0-alpha.19", features = ["compat"] }
+url = "1.7"
+
+[dependencies.multidao-runtime]
+path = '../multidao/runtime'
+
+[dependencies.dot-runtime]
+path = '../dot/runtime'
+
+[dependencies.codec]
+package = 'parity-scale-codec'
+version = '1.0.0'
+
+[dependencies.executor]
+path = '../substrate/core/executor'
+package = 'substrate-executor'
+
+[dependencies.keyring]
+path = '../substrate/core/keyring'
+package = 'substrate-keyring'
+
+[dependencies.node-primitives]
+path = '../substrate/node/primitives'
+package = 'node-primitives'
+
+[dependencies.primitives]
+path = '../substrate/core/primitives'
+package = 'substrate-primitives'
+
+[dependencies.srml-system]
+path = '../substrate/srml/system'
+package = 'srml-system'
+
+[dependencies.srml-indices]
+path = '../substrate/srml/indices'
+package = 'srml-indices'

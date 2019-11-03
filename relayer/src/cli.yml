@@ -1,0 +1,56 @@
+name: relayer
+author: "Yuanchao Sun <yuanchao.sun@gmail.com>"
+args:
+  - password:
+      short: p
+      long: password
+      takes_value: true
+      required: false
+      help: The password for the key
+subcommands:
+  - run:
+      args:
+        - addr1:
+            long: addr1
+            help: The address of Chain A.
+            takes_value: true
+            required: true
+        - addr2:
+            long: addr2
+            help: The address of Chain B.
+            takes_value: true
+            required: true
+  - set-heads:
+      args:
+        - suri:
+            long: suri
+            short: s
+            help: The secret key URI.
+            takes_value: true
+            required: true
+        - nonce:
+            short: n
+            long: nonce
+            help: The nonce.
+            takes_value: true
+            required: true
+        - genesis:
+            short: g
+            long: genesis
+            help: The genesis hash.
+            takes_value: true
+            required: true
+  - interchain-message:
+      args:
+        - para-id:
+            short: p
+            long: para-id
+            help: The parachain id.
+            takes_value: true
+            required: true
+        - message:
+            short: m
+            long: message
+            help: The interchain message in hexadecimal format.
+            takes_value: true
+            required: true

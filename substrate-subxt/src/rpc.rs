@@ -137,6 +137,10 @@ impl<T: System> Rpc<T> {
     ) -> impl Future<Item = RuntimeVersion, Error = Error> {
         self.state.runtime_version(at).map_err(Into::into)
     }
+
+    pub fn read_proof(&self, id: Option<T::Hash>, key: StorageKey) -> impl Future<Item = Vec<Vec<u8>>, Error = Error> {
+        self.state.read_proof(id, key).map_err(Into::into)
+    }
 }
 use futures::{
     future::IntoFuture,

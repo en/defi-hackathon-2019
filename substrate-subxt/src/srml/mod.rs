@@ -5,6 +5,8 @@ use std::marker::PhantomData;
 
 pub mod balances;
 pub mod contracts;
+pub mod dot;
+pub mod ibc;
 pub mod system;
 
 /// Creates module calls

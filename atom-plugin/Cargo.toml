@@ -1,0 +1,17 @@
+[package]
+name = "atom-plugin"
+version = "0.1.0"
+authors = ["Yuanchao Sun <yuanchao.sun@gmail.com>"]
+edition = "2018"
+build = "build.rs"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+
+[build-dependencies]
+wasm-builder-runner = { package = "substrate-wasm-builder-runner", version = "1.0.3" }
+
+[features]
+default = [ "std" ]
+std = []
