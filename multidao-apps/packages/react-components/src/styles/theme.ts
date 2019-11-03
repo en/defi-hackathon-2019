@@ -10,8 +10,12 @@ const colorBtnDefault = '#666';
 /* highlighted buttons, orange */
 const colorBtnHighlight = '#f19135';
 
+/* highlighted buttons, orange */
+const colorBtnHighlightCustom = '#5064fb';
+
 /* primary buttons, blue */
-const colorBtnPrimary = '#2e86ab';
+const colorBtnPrimary = '#1abc9c';
+const custonColorBtnPrimary = '#fff';
 
 /* button text color */
 const colorBtnText = '#f9f9f9';
@@ -84,7 +88,7 @@ export default css`
     }
 
     .ui.menu.tabular .item.active {
-      border-bottom-color: ${colorBtnHighlight};
+      border-bottom-color: ${colorBtnHighlightCustom};
     }
 
     /* this is for dropdown buttons */

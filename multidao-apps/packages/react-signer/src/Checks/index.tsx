@@ -137,7 +137,7 @@ export function FeeDisplay ({ accountId, balances_all = ZERO_BALANCE, balances_f
     : allWarn
       ? 'warning'
       : 'normal';
-
+  return (<div></div>)
   // display all the errors, warning and information messages (in that order)
   return (
     <article

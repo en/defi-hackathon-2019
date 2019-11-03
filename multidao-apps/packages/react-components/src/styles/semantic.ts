@@ -189,10 +189,11 @@ export default css`
       border-bottom: 2px solid rgba(0, 0, 0, 0);
       border: none;
       top: -1px;
+      color:'#fffff';
 
       &.active {
         background: none;;
-        border-bottom: 2px solid #db2828;
+        border-bottom: 2px solid #5064fb;
       }
     }
   }

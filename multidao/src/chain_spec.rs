@@ -1,10 +1,10 @@
 use babe_primitives::AuthorityId as BabeId;
 use grandpa_primitives::AuthorityId as GrandpaId;
 use multidao_runtime::{
-    AccountId, BabeConfig, BalancesConfig, GenesisConfig, GrandpaConfig, IndicesConfig, SudoConfig,
-    SystemConfig, WASM_BINARY,
+    AccountId, BabeConfig, BalancesConfig, GenesisConfig, GrandpaConfig, IndicesConfig,
+    MultiDAOConfig, SudoConfig, SystemConfig, WASM_BINARY,
 };
-use primitives::{Pair, Public};
+use primitives::{sr25519, Pair, Public};
 use substrate_service;
 
 // Note this is the URL for the telemetry server
@@ -41,6 +41,13 @@ pub fn get_authority_keys_from_seed(seed: &str) -> (AccountId, AccountId, Grandp
     )
 }
 
+fn account_key(s: &str) -> AccountId {
+    let p = sr25519::Pair::from_string(&format!("//{}", s), None)
+        .expect("static values are valid; qed")
+        .public();
+    p
+}
+
 impl Alternative {
     /// Get an actual chain config from one of the alternatives.
     pub(crate) fn load(self) -> Result<ChainSpec, String> {
@@ -55,8 +62,10 @@ impl Alternative {
                         vec![
                             get_from_seed::<AccountId>("Alice"),
                             get_from_seed::<AccountId>("Bob"),
+                            get_from_seed::<AccountId>("Charlie"),
                             get_from_seed::<AccountId>("Alice//stash"),
                             get_from_seed::<AccountId>("Bob//stash"),
+                            get_from_seed::<AccountId>("Charlie//stash"),
                         ],
                         true,
                     )
@@ -146,6 +155,25 @@ fn testnet_genesis(
                 .iter()
                 .map(|x| (x.2.clone(), 1))
                 .collect(),
+        }),
+        multidao: Some(MultiDAOConfig {
+            owner_a: account_key("Alice"),
+            owner_b: account_key("Bob"),
+            owner_c: account_key("Charlie"),
+            rate: 150,
+            assets: vec![
+                (account_key("Alice"), 150000),
+                (account_key("Alice"), 150000),
+                (account_key("Alice"), 150000),
+                (account_key("Alice"), 150000),
+                (account_key("Alice"), 150000),
+            ],
+            prices: vec![
+                10000,   // 1 dollar
+                40000,   // 4 dollar
+                1000000, // 100 dollar
+                800000, 60000,
+            ],
         }),
     }
 }

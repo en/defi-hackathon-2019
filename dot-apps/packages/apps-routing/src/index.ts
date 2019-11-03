@@ -26,6 +26,7 @@ import sudo from './sudo';
 import toolbox from './toolbox';
 import transfer from './transfer';
 import treasury from './treasury';
+import dot from './dot';
 
 const routes: Routes = appSettings.uiMode === 'light'
   ? ([] as Routes).concat(
@@ -35,6 +36,7 @@ const routes: Routes = appSettings.uiMode === 'light'
     addressbook,
     claims,
     transfer,
+    dot,
     genericAsset,
     null,
     staking,
@@ -51,6 +53,7 @@ const routes: Routes = appSettings.uiMode === 'light'
     addressbook,
     claims,
     transfer,
+    dot,
     genericAsset,
     null,
     staking,
@@ -71,7 +74,7 @@ const routes: Routes = appSettings.uiMode === 'light'
   );
 
 const setup: Routing = {
-  default: 'explorer',
+  default: 'dot',
   routes
 };
 

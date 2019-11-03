@@ -45,6 +45,7 @@ function SideBar ({ className, collapse, handleResize, isCollapsed, toggleMenu, 
   const _toggleModal = (name: string): () => void =>
     (): void => setModals({ ...modals, [name]: !modals[name] });
 
+  return (<div></div>)
   return (
     <Responsive
       onUpdate={handleResize}

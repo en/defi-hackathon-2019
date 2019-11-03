@@ -181,21 +181,22 @@ class Signer extends React.PureComponent<Props, State> {
 
     return (
       <Modal.Actions>
-        <Button.Group>
-          <Button
-            isNegative
-            onClick={
-              isQrVisible
-                ? this.onCancelQr
-                : this.onCancel
-            }
-            tabIndex={3}
-            label={t('Cancel')}
-            icon='cancel'
-          />
+          <div style={{display:'flex', justifyContent:'space-between'}}>
+          <div>
+            <Button
+              isNegative
+              onClick={
+                isQrVisible
+                  ? this.onCancelQr
+                  : this.onCancel
+              }
+              tabIndex={3}
+              label={t('Cancel')}
+              icon='cancel'
+            />
+          </div>
           {(!isQrVisible || !isQrScanning) && (
-            <>
-              <Button.Or />
+            <div>
               <Button
                 className='ui--signer-Signer-Submit'
                 isDisabled={!isSendable}
@@ -227,9 +228,9 @@ class Signer extends React.PureComponent<Props, State> {
                         : 'sign-in'
                 }
               />
-            </>
+            </div>
           )}
-        </Button.Group>
+          </div>
       </Modal.Actions>
     );
   }

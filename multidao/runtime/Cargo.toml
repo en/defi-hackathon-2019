@@ -115,6 +115,16 @@ default_features = false
 path = '../../substrate/core/sr-version'
 package = 'sr-version'
 
+[dependencies.app-crypto]
+default_features = false
+path = '../../substrate/core/application-crypto'
+package = 'substrate-application-crypto'
+
+[dependencies.wasm-proof]
+default_features = false
+path = '../../substrate/core/wasm-proof'
+package = 'wasm-proof'
+
 [features]
 default = ['std']
 std = [
@@ -140,4 +150,5 @@ std = [
     'safe-mix/std',
     'offchain-primitives/std',
     'substrate-session/std',
+    'wasm-proof/std',
 ]

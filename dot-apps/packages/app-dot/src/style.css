@@ -1,0 +1,116 @@
+.content {
+  margin:0;
+  width: 100%;
+}
+
+.btn {
+  background-color: #5064fb;
+  height: 44px;
+}
+
+.hidden {
+  display: none;
+}
+
+
+.input-row {
+  /* margin-bottom: 20px; */
+  width: 50%;
+
+  label {
+    position: absolute;
+    margin-left: 15px;
+    margin-top: 5px;
+  }
+}
+
+.title {
+  text-align: center;
+  color: #fff;
+  margin-bottom: 30px;
+  font-weight: 600;
+}
+
+
+.number-input {
+  height: 55px;
+  outline:none;
+  width: 100%;
+  padding-left: 15px;
+  /* padding-top: 10px; */
+  border-radius: 1.25rem;
+  border-width: inherit;
+  border-color: rgb(51, 51, 51);
+  border-image: initial;
+}
+
+.asset-dropdown{
+  border-radius: 3rem !important;
+  border-color: transparent !important;
+  box-shadow: none !important;
+  border-width: 0 !important;
+  height: 55px;
+  margin: 0 !important;
+
+  &.active{
+     border-radius: 2rem !important;
+  }
+}
+
+.ui.selection.dropdown .menu{
+  max-height: 25rem;
+}
+
+.ui.selection.active.dropdown .menu {
+  box-shadow: none !important;
+  border-radius: 0 0 2rem 2rem;
+
+  &>.item{
+     line-height: 2rem;
+
+     img{
+       width: 30px;
+       height: 30px;
+       display: inline-block;
+       vertical-align: middle;
+     }
+   }
+}
+
+.tx-button{
+  width: 20rem;
+  height: 50px;
+  fontSize: 1.25rem;
+}
+
+.pool-button{
+  margin-top: 1.5rem !important;
+  width: 10rem;
+  height: 50px;
+  font-size: 1.25rem !important;
+}
+
+.dQiDyB:not(.label-small) > .ui--Labelled-content .ui.selection.dropdown:not(.floating) {
+  padding-left: 1.45rem;
+  font-size: 16px;
+  padding-top: 19px;
+}
+
+.dropdown.icon {
+  top: 16px !important;
+  right: 25px !important;
+}
+
+.ui.menu.tabular .item {
+  left: 22% !important;
+  top: 0 !important;
+}
+
+
+.sum {
+  background-color: grey;
+  color: #fff !important;
+  border: 1px solid #fff;
+  border-radius: 15px;;
+  margin: 20px;
+}

@@ -18,7 +18,7 @@ use grandpa::{AuthorityId as GrandpaId, AuthorityWeight as GrandpaWeight};
 use primitives::{crypto::key_types, OpaqueMetadata};
 use rstd::prelude::*;
 use sr_primitives::traits::{
-    BlakeTwo256, Block as BlockT, ConvertInto, NumberFor, StaticLookup, Verify,
+    BlakeTwo256, Block as BlockT, ConvertInto, NumberFor, SaturatedConversion, StaticLookup, Verify,
 };
 use sr_primitives::weights::Weight;
 use sr_primitives::{
@@ -28,6 +28,9 @@ use sr_primitives::{
 #[cfg(feature = "std")]
 use version::NativeVersion;
 use version::RuntimeVersion;
+
+/// Additionally, we need `system` here
+use system::offchain::TransactionSubmitter;
 
 // A few exports that help ease life for downstream crates.
 pub use balances::Call as BalancesCall;
@@ -63,6 +66,7 @@ pub type Hash = primitives::H256;
 /// Digest item type.
 pub type DigestItem = generic::DigestItem<Hash>;
 
+pub mod multidao;
 /// Used for the module template in `./template.rs`
 mod template;
 
@@ -259,6 +263,65 @@ impl template::Trait for Runtime {
     type Event = Event;
 }
 
+/// We need to define the AppCrypto for the keys that are authorized
+/// to `pong`
+pub mod offchaincb_crypto {
+    pub use crate::multidao::KEY_TYPE;
+    use primitives::sr25519;
+    app_crypto::app_crypto!(sr25519, KEY_TYPE);
+
+    impl From<Signature> for super::Signature {
+        fn from(a: Signature) -> Self {
+            sr25519::Signature::from(a).into()
+        }
+    }
+}
+
+/// We need to define the Transaction signer for that using the Key definition
+type OffchainCbAccount = offchaincb_crypto::Public;
+type SubmitTransaction = TransactionSubmitter<OffchainCbAccount, Runtime, UncheckedExtrinsic>;
+
+/// Lastly we also need to implement the CreateTransaction signer for the runtime
+impl system::offchain::CreateTransaction<Runtime, UncheckedExtrinsic> for Runtime {
+    type Signature = Signature;
+
+    fn create_transaction<F: system::offchain::Signer<AccountId, Self::Signature>>(
+        call: Call,
+        account: AccountId,
+        index: Index,
+    ) -> Option<(
+        Call,
+        <UncheckedExtrinsic as sr_primitives::traits::Extrinsic>::SignaturePayload,
+    )> {
+        let period = 1 << 8;
+        let current_block = System::block_number().saturated_into::<u64>();
+        let tip = 0;
+        let extra: SignedExtra = (
+            system::CheckVersion::<Runtime>::new(),
+            system::CheckGenesis::<Runtime>::new(),
+            system::CheckEra::<Runtime>::from(generic::Era::mortal(period, current_block)),
+            system::CheckNonce::<Runtime>::from(index),
+            system::CheckWeight::<Runtime>::new(),
+            balances::TakeFees::<Runtime>::from(tip),
+            // transaction_payment::ChargeTransactionPayment::<Runtime>::from(tip),
+        );
+        let raw_payload = SignedPayload::new(call, extra).ok()?;
+        let signature = F::sign(account.clone(), &raw_payload)?;
+        let address = Indices::unlookup(account);
+        let (call, extra, _) = raw_payload.deconstruct();
+        Some((call, (address, signature, extra)))
+    }
+}
+
+impl multidao::Trait for Runtime {
+    type Balance = Balance;
+    type AssetId = u64;
+    type Event = Event;
+    type Call = Call;
+    type SubmitTransaction = SubmitTransaction;
+    type KeyType = OffchainCbAccount;
+}
+
 construct_runtime!(
 	pub enum Runtime where
 		Block = Block,
@@ -275,6 +338,7 @@ construct_runtime!(
 		// Used for the module template in `./template.rs`
 		TemplateModule: template::{Module, Call, Storage, Event<T>},
 		RandomnessCollectiveFlip: randomness_collective_flip::{Module, Call, Storage},
+                MultiDAO: multidao::{Module, Call, Storage, Config<T>, Event<T>},
 	}
 );
 
@@ -304,6 +368,7 @@ pub type CheckedExtrinsic = generic::CheckedExtrinsic<AccountId, Call, SignedExt
 /// Executive: handles dispatch to the various modules.
 pub type Executive =
     executive::Executive<Runtime, Block, system::ChainContext<Runtime>, Runtime, AllModules>;
+pub type SignedPayload = generic::SignedPayload<Call, SignedExtra>;
 
 impl_runtime_apis! {
     impl client_api::Core<Block> for Runtime {

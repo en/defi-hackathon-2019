@@ -5,13 +5,13 @@
 import { css } from 'styled-components';
 
 /* default buttons, dark gray */
-const colorBtnDefault = '#666';
+const colorBtnDefault = '#fff';
 
 /* highlighted buttons, orange */
 const colorBtnHighlight = '#f19135';
 
 /* primary buttons, blue */
-const colorBtnPrimary = '#2e86ab';
+const colorBtnPrimary = '#5064fb';
 
 /* button text color */
 const colorBtnText = '#f9f9f9';

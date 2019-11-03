@@ -1,0 +1,128 @@
+.input-row {
+  /* margin-bottom: 20px; */
+  width: 50%;
+
+  label {
+    position: absolute;
+    margin-left: 15px;
+    margin-top: 5px;
+  }
+}
+
+
+.number-input {
+  outline:none;
+  width: 80%;
+  padding-left: 20px;
+  padding-top: 20px;
+  border-radius: 1.25rem;
+  border-width: inherit;
+  border-color: rgb(51, 51, 51);
+  border-image: initial;
+}
+
+.asset-dropdown{
+  border-radius: 3rem !important;
+  border-color: transparent !important;
+  box-shadow: none !important;
+  border-width: 0 !important;
+  margin: 0 !important;
+
+  &.active{
+     border-radius: 2rem !important;
+  }
+}
+
+.ui.selection.dropdown .menu{
+  max-height: 25rem;
+}
+
+.ui.selection.active.dropdown .menu {
+  box-shadow: none !important;
+  border-radius: 0 0 2rem 2rem;
+
+  &>.item{
+     line-height: 2rem;
+
+     img{
+       width: 30px;
+       height: 30px;
+       display: inline-block;
+       vertical-align: middle;
+     }
+   }
+}
+
+.tx-button{
+  width: 20rem;
+  height: 50px;
+  fontSize: 1.25rem;
+}
+
+.pool-button{
+  margin-top: 1.5rem !important;
+  width: 500px;
+  height: 50px;
+  font-size: 1.25rem !important;
+}
+
+.dQiDyB:not(.label-small) > .ui--Labelled-content .ui.selection.dropdown:not(.floating) {
+  padding-left: 1.45rem;
+  font-size: 16px;
+  padding-top: 19px;
+}
+
+.dropdown.icon {
+  top: 16px !important;
+  right: 25px !important;
+}
+
+.ui.menu.tabular .item {
+  left: 32% !important;
+  top: 0 !important;
+  color: #fff !important;
+  width: 200px;
+  font-size: 20px;
+  text-align: center;
+  /* background-color: white; */
+}
+
+.ui.menu.tabular .active {
+  background-color: #d9d9d9;
+  font-weight: 800;
+  font-size: 20px;
+
+}
+
+.title {
+  text-align: center;
+  color: #fff;
+  font-weight: 600;
+}
+
+.container-content {
+  display: block;
+  max-width: 40rem;
+  width: 90%;
+  margin: 70px auto;
+}
+
+.inputContainer {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 2rem;
+  height: 75px;
+}
+
+.label {
+  color:#9aa3ad;
+  margin-bottom: 5px;
+}
+
+.banner {
+  color:#1abc9c;
+  font-size: 50px;
+  text-align: center;
+  margin-bottom: 50px;
+}

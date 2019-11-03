@@ -53,5 +53,9 @@
     "postcss-simple-vars": "^5.0.0",
     "precss": "^4.0.0",
     "source-map-explorer": "^2.1.0"
+  },
+  "dependencies": {
+    "decimal.js": "^10.2.0",
+    "lodash": "^4.17.15"
   }
 }

@@ -29,19 +29,19 @@ function Transaction ({ children, hideDetails, isSendable, value: { accountId, e
   const { meta, method, section } = GenericCall.findFunction(extrinsic.callIndex);
 
   return (
-    <>
-      <Modal.Header>
+    <div >
+      <Modal.Header style={{height:'60px', padding:'15px', fontWeight:'400'}}>
         {section}.{method}
-        <label><details><summary>{
+        {/* <label><details><summary>{
           meta && meta.documentation
             ? meta.documentation.join(' ')
             : ''
-        }</summary></details></label>
+        }</summary></details></label> */}
       </Modal.Header>
-      <Modal.Content className='ui--signer-Signer-Content'>
+      <Modal.Content className='ui--signer-Signer-Content' style={{paddingRight:'15px'}}>
         {!hideDetails && (
           <>
-            {!isUnsigned && accountId && (
+            {/* {!isUnsigned && accountId && (
               <InputAddress
                 className='full'
                 defaultValue={accountId}
@@ -50,7 +50,7 @@ function Transaction ({ children, hideDetails, isSendable, value: { accountId, e
                 label={t('sending from my account')}
                 withLabel
               />
-            )}
+            )} */}
             <Call value={extrinsic} />
             {!isUnsigned && (
               <Checks
@@ -64,7 +64,7 @@ function Transaction ({ children, hideDetails, isSendable, value: { accountId, e
         )}
         {children}
       </Modal.Content>
-    </>
+    </div>
   );
 }
 

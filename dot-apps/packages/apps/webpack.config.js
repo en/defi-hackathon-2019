@@ -193,7 +193,7 @@ function createWebpack ({ alias = {}, context, name = 'index' }) {
           hmr: false, // switch off, Chrome WASM memory leak
           liveReload: false, // explict off, overrides hmr
           progress: false, // since we have hmr off, disable
-          port: 3000,
+          port: 5000,
           static: path.join(process.cwd(), '/build')
         })
     ]).filter((plugin) => plugin),

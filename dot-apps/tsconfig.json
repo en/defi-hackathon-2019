@@ -23,6 +23,8 @@
       "@polkadot/app-dashboard/*": [ "packages/app-dashboard/src/*" ],
       "@polkadot/app-democracy": [ "packages/app-democracy/src" ],
       "@polkadot/app-democracy/*": [ "packages/app-democracy/src/*" ],
+      "@polkadot/app-dot": [ "packages/app-dot/src" ],
+      "@polkadot/app-dot/*": [ "packages/app-dot/src/*" ],
       "@polkadot/app-extrinsics": [ "packages/app-extrinsics/src" ],
       "@polkadot/app-extrinsics/*": [ "packages/app-extrinsics/src/*" ],
       "@polkadot/app-explorer": [ "packages/app-explorer/src" ],

@@ -20,10 +20,10 @@ pub trait Trait: system::Trait {
 // This module's storage items.
 decl_storage! {
     trait Store for Module<T: Trait> as TemplateModule {
-        // Just a dummy storage item.
-        // Here we are declaring a StorageValue, `Something` as a Option<u32>
-        // `get(something)` is the default getter which returns either the stored `u32` or `None` if nothing stored
-        Something get(something): Option<u32>;
+        // 比如说要我生成一个proof，是proof用户Foo转移了100DOT,
+        // 在我的这个简化的例子里就是生成一个指定高度(proof_height)的
+        // EscrowAccount里有(Foo, 100)这个键值对
+        EscrowAccount: map T::AccountId => Option<u128>;
     }
 }
 
@@ -35,19 +35,20 @@ decl_module! {
         // this is needed only if you are using events in your module
         fn deposit_event() = default;
 
-        // Just a dummy entry point.
-        // function that can be called by the external world as an extrinsics call
-        // takes a parameter of the type `AccountId`, stores it and emits an event
-        pub fn do_something(origin, something: u32) -> Result {
-            // TODO: You only need this if you want to check it was signed.
+        // 用户调用这个extrinsic发起一笔跨链转账，目的是将数量为amount的DOT转移到cdai链上
+        // 我这个地方忽略了目标链和目标链上的账户
+        pub fn transfer_dot(origin, amount: u128) -> Result {
             let who = ensure_signed(origin)?;
 
-            // TODO: Code to execute when something calls this.
-            // For example: the following line stores the passed in u32 in the storage
-            Something::put(something);
+            // 实际这个链在启动的时候应该创建一个链才有权限取钱的EscrowAccount，类型为T::AccountId
+            // 用户转账就是将资产transfer到这个EscrowAccount里锁定起来
+            // 我这个地方也简化成了一个map表示，key为谁，value为锁定了多少钱
+            <EscrowAccount<T>>::insert(&who, amount);
 
-            // here we are raising the Something event
-            Self::deposit_event(RawEvent::SomethingStored(something, who));
+            // 这个地方我获取了区块高度，并包含在了event里，relayer需要这个高度去获取proof
+            let proof_height = <system::Module<T>>::block_number();
+
+            Self::deposit_event(RawEvent::DotTransferred(who, amount, proof_height));
             Ok(())
         }
     }
@@ -57,11 +58,9 @@ decl_event!(
     pub enum Event<T>
     where
         AccountId = <T as system::Trait>::AccountId,
+        BlockNumber = <T as system::Trait>::BlockNumber,
     {
-        // Just a dummy event.
-        // Event `Something` is declared with a parameter of the type `u32` and `AccountId`
-        // To emit this event, we call the deposit funtion, from our runtime funtions
-        SomethingStored(u32, AccountId),
+        DotTransferred(AccountId, u128, BlockNumber),
     }
 );
 

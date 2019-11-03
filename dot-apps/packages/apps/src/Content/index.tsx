@@ -69,7 +69,8 @@ export default withMulti(
       overflow-x: hidden;
       overflow-y: auto;
       width: 100%;
-      padding: 0 2rem;
+      // padding: 0 2rem;
+      background: linear-gradient(135deg,#0f0d20,#040405 25%,#21224d 53%,#446eb7);
 
       @media(max-width: 768px) {
         padding: 0 0.5rem;
